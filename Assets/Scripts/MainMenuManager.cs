@@ -77,14 +77,14 @@ public class MainMenuManager : MonoBehaviour
 
     AudioSource musicSource;
 
-
-    /*    private enum MenuStat
+    private MenuStat currentMenu = MenuStat.MenuStat_Welcome;
+      private enum MenuStat
         {
             MenuStat_Welcome,
             MenuStat_Main,
             MenuStat_Options,
-            MenuStat_Play
-        }*/
+            MenuStat_Play,
+        }
 
 
     void Start()
@@ -184,20 +184,26 @@ public class MainMenuManager : MonoBehaviour
         // raccourci
         if (Input.GetKeyDown(KeyCode.S))
         {
+            currentMenu = MenuStat.MenuStat_Main;
             MenuTitreToMainMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            currentMenu = MenuStat.MenuStat_Play;
             MainMenutoMenuPlay();
         }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            currentMenu = MenuStat.MenuStat_Options;
             MainMenuToMenuOption();
         }
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            MenuPlayBackToMenuPrincipal();
+            if (currentMenu == MenuStat.MenuStat_Options)
+                MenuOptionToMainMenu();
+            if (currentMenu == MenuStat.MenuStat_Play)
+                MenuPlayBackToMenuPrincipal();
         }
 
         if (Input.GetKeyDown(KeyCode.N))
